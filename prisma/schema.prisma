@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // url      = "postgresql://postgres:gCF459Xz*2.gMFP@db.jucqhnwphitttpxlxpda.supabase.co:5432/postgres"
+}
+
+model User {
+  id         String @id @default(uuid())
+  userName   String
+  email      String @unique
+  password   String
+  contactNo  String
+  role       ROLE
+  fullName   String
+  profileImage String
+
+  bookings Booking[]
+
+  @@map("user")
+}
+
+model Booking {
+  id               String        @id @default(uuid())
+  userId           String
+  user             User          @relation(fields: [userId], references: [id])
+  destinationId    String
+  destination      Destination   @relation(fields: [destinationId], references: [id])
+  checkIn          DateTime
+  checkOut         DateTime
+  status           BOOKINGSTATUS @default(BOOKED)
+  numberOfAdults   Int
+  numberOfChildren Int
+  totalPrice       Float
+
+
+  @@map("booking")
+}
+
+model Destination {
+  id          String    @id @default(uuid())
+  country     String
+  description String
+  location    String
+  category    CATEGORY
+  transport   TRANSPORT
+  cost       Float
+  image      String
+  activities Activity[]
+  booking    Booking[]
+
+  @@map("destination")
+
+}
+
+model Activity {
+  id            String      @id @default(uuid())
+  name          String
+  description   String
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id])
+  price         Float
+  startTime     DateTime
+  endTime      DateTime
+
+  @@map("activity")
+}
+
+enum ROLE {
+  super_admin
+  admin
+  customer
+}
+
+enum BOOKINGSTATUS {
+  BOOKED
+  CONFIRMED
+  CANCEL
+}
+
+enum CATEGORY {
+  HILL
+  SEA
+  FOREST
+  CITY
+}
+
+enum TRANSPORT {
+  BUS
+  TRAIN
+  AIR
+  CAR
+  BOAT
+}
