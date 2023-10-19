@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const auth_router_1 = require("../modules/auth/auth.router");
-const book_routes_1 = require("../modules/book/book.routes");
-const category_routes_1 = require("../modules/category/category.routes");
-const order_routes_1 = require("../modules/order/order.routes");
+const destination_routes_1 = require("../modules/destination/destination.routes");
+const activity_routes_1 = require("../modules/activity/activity.routes");
+const booking_routes_1 = require("../modules/booking/booking.routes");
 const user_routes_1 = require("../modules/user/user.routes");
 const router = express_1.default.Router();
 const moduleRoutes = [
@@ -18,11 +18,11 @@ const moduleRoutes = [
     },
     {
         path: '/',
-        route: category_routes_1.CategoryRoutes,
+        route: activity_routes_1.CategoryRoutes,
     },
     {
         path: '/',
-        route: book_routes_1.BookRoutes,
+        route: destination_routes_1.BookRoutes,
     },
     {
         path: '/',
@@ -30,7 +30,7 @@ const moduleRoutes = [
     },
     {
         path: '/',
-        route: order_routes_1.OrderRoutes,
+        route: booking_routes_1.OrderRoutes,
     },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));

@@ -3,11 +3,11 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { CategoryService } from './activity.service';
+import { ActivityService } from './activity.service';
 
 const insertIntoDB = catchAsync(
   async (req: Request, res: Response): Promise<Activity> => {
-    const result = await CategoryService.insertIntoDB(req.body);
+    const result = await ActivityService.insertIntoDB(req.body);
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -18,8 +18,8 @@ const insertIntoDB = catchAsync(
   }
 );
 
-const getAllCategory = catchAsync(async (req: Request, res: Response) => {
-  const result = await CategoryService.getAllCategory();
+const getAllActivity = catchAsync(async (req: Request, res: Response) => {
+  const result = await ActivityService.getAllActivity();
   sendResponse<Activity[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -30,8 +30,8 @@ const getAllCategory = catchAsync(async (req: Request, res: Response) => {
   return result;
 });
 
-const getSingleCategory = catchAsync(async (req: Request, res: Response) => {
-  const result = await CategoryService.getSingleCategory(req.params.id);
+const getSingleActivity = catchAsync(async (req: Request, res: Response) => {
+  const result = await ActivityService.getSingleActivity(req.params.id);
   sendResponse<Activity>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -40,8 +40,8 @@ const getSingleCategory = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const updateCategory = catchAsync(async (req: Request, res: Response) => {
-  const result = await CategoryService.updateCategory(req.params.id, req.body);
+const updateActivity = catchAsync(async (req: Request, res: Response) => {
+  const result = await ActivityService.updateActivity(req.params.id, req.body);
   sendResponse<Activity>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -51,8 +51,8 @@ const updateCategory = catchAsync(async (req: Request, res: Response) => {
   return result;
 });
 
-const deleteCategory = catchAsync(async (req: Request, res: Response) => {
-  const result = await CategoryService.deleteCategory(req.params.id);
+const deleteActivity = catchAsync(async (req: Request, res: Response) => {
+  const result = await ActivityService.deleteActivity(req.params.id);
   sendResponse<Activity>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -62,10 +62,10 @@ const deleteCategory = catchAsync(async (req: Request, res: Response) => {
   return result;
 });
 
-export const CategoryController = {
+export const ActivityController = {
   insertIntoDB,
-  getAllCategory,
-  getSingleCategory,
-  updateCategory,
-  deleteCategory,
+  getAllActivity,
+  getSingleActivity,
+  updateActivity,
+  deleteActivity,
 };

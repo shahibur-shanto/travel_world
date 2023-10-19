@@ -7,8 +7,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
-  // url      = "postgresql://postgres:gCF459Xz*2.gMFP@db.jucqhnwphitttpxlxpda.supabase.co:5432/postgres"
+  // url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:Shahibur@123@db.mufpfximevwwfuktxpmv.supabase.co:5432/postgres"
 }
 
 model User {
@@ -26,22 +26,6 @@ model User {
   @@map("user")
 }
 
-model Booking {
-  id               String        @id @default(uuid())
-  userId           String
-  user             User          @relation(fields: [userId], references: [id])
-  destinationId    String
-  destination      Destination   @relation(fields: [destinationId], references: [id])
-  checkIn          DateTime
-  checkOut         DateTime
-  status           BOOKINGSTATUS @default(BOOKED)
-  numberOfAdults   Int
-  numberOfChildren Int
-  totalPrice       Float
-
-
-  @@map("booking")
-}
 
 model Destination {
   id          String    @id @default(uuid())
@@ -66,11 +50,31 @@ model Activity {
   destinationId String
   destination   Destination @relation(fields: [destinationId], references: [id])
   price         Float
-  startTime     DateTime
-  endTime      DateTime
+  startTime     String
+  endTime      String
 
   @@map("activity")
 }
+
+
+model Booking {
+  id               String        @id @default(uuid())
+  userId           String
+  user             User          @relation(fields: [userId], references: [id])
+  destinationId    String
+  destination      Destination   @relation(fields: [destinationId], references: [id])
+  checkIn          String
+  checkOut         String
+  status           BOOKINGSTATUS
+  numberOfAdults   Int
+  numberOfChildren Int
+  totalPrice       Int
+
+
+  @@map("booking")
+}
+
+
 
 enum ROLE {
   super_admin

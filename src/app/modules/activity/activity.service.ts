@@ -1,18 +1,29 @@
-import { Category, PrismaClient } from '@prisma/client';
+import { Activity, PrismaClient } from '@prisma/client';
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 import { IGenericResponse } from '../../../interfaces/common';
 
 const prisma = new PrismaClient();
 
-const insertIntoDB = async (data: Category): Promise<Category> => {
-  const result = await prisma.category.create({
+const insertIntoDB = async (data: Activity): Promise<Activity> => {
+  const { destinationId } = data;
+  const isExists = await prisma.destination.findUnique({
+    where: {
+      id: destinationId,
+    },
+  });
+  if (!isExists) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'destination not found');
+  }
+  const result = await prisma.activity.create({
     data,
   });
   return result;
 };
 
-const getAllCategory = async (): Promise<IGenericResponse<Category[]>> => {
-  const result = await prisma.category.findMany();
-  const total = await prisma.category.count();
+const getAllActivity = async (): Promise<IGenericResponse<Activity[]>> => {
+  const result = await prisma.activity.findMany();
+  const total = await prisma.activity.count();
   return {
     meta: {
       total: total,
@@ -24,8 +35,8 @@ const getAllCategory = async (): Promise<IGenericResponse<Category[]>> => {
   };
 };
 
-const getSingleCategory = async (id: string): Promise<Category | null> => {
-  const result = await prisma.category.findUnique({
+const getSingleActivity = async (id: string): Promise<Activity | null> => {
+  const result = await prisma.activity.findUnique({
     where: {
       id,
     },
@@ -33,11 +44,11 @@ const getSingleCategory = async (id: string): Promise<Category | null> => {
   return result;
 };
 
-const updateCategory = async (
+const updateActivity = async (
   id: string,
-  payload: Partial<Category>
-): Promise<Category> => {
-  const result = await prisma.category.update({
+  payload: Partial<Activity>
+): Promise<Activity> => {
+  const result = await prisma.activity.update({
     where: {
       id,
     },
@@ -46,8 +57,8 @@ const updateCategory = async (
   return result;
 };
 
-const deleteCategory = async (id: string): Promise<Category | null> => {
-  const result = await prisma.category.delete({
+const deleteActivity = async (id: string): Promise<Activity | null> => {
+  const result = await prisma.activity.delete({
     where: {
       id,
     },
@@ -56,10 +67,10 @@ const deleteCategory = async (id: string): Promise<Category | null> => {
   return result;
 };
 
-export const CategoryService = {
+export const ActivityService = {
   insertIntoDB,
-  getAllCategory,
-  getSingleCategory,
-  updateCategory,
-  deleteCategory,
+  getAllActivity,
+  getSingleActivity,
+  updateActivity,
+  deleteActivity,
 };
