@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const client_1 = require("@prisma/client");
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const config_1 = __importDefault(require("../../../config"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const jwtHelpers_1 = require("../../../helpers/jwtHelpers");
@@ -29,7 +30,11 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (!result) {
         throw new ApiError_1.default(404, 'User Does not Exists');
     }
-    if (result.password !== password) {
+    // console.log('given pass', password);
+    // console.log('saved pass', result.password);
+    const passMatch = yield bcryptjs_1.default.compare(password, result.password);
+    // console.log(passMatch);
+    if (!passMatch) {
         throw new ApiError_1.default(404, 'Password not matched');
     }
     const { role, id } = result;

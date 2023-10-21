@@ -22,7 +22,7 @@ const insertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma.user.create({
         data,
         select: {
-            password: false,
+            password: true,
             id: true,
             userName: true,
             email: true,

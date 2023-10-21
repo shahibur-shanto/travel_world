@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 import { Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
@@ -18,17 +19,20 @@ const loginUser = async (
     },
   });
 
-//   console.log(result);
+  //   console.log(result);
   if (!result) {
     throw new ApiError(404, 'User Does not Exists');
   }
-
-  if (result.password !== password) {
+  // console.log('given pass', password);
+  // console.log('saved pass', result.password);
+  const passMatch = await bcrypt.compare(password, result.password);
+  // console.log(passMatch);
+  if (!passMatch) {
     throw new ApiError(404, 'Password not matched');
   }
 
   const { role, id } = result;
-//   console.log(role, id);
+  //   console.log(role, id);
   const accessToken = jwtHelpers.createToken(
     { role, id },
     config.jwt.secret as Secret,
