@@ -8,11 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const client_1 = require("@prisma/client");
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const index_1 = __importDefault(require("../../../config/index"));
 const prisma = new client_1.PrismaClient();
 const insertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    data.password = yield bcryptjs_1.default.hash(data.password, Number(index_1.default.bycrypt_salt_rounds));
     const result = yield prisma.user.create({
         data,
         select: {

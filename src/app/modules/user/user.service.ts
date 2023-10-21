@@ -1,13 +1,19 @@
 import { PrismaClient, User } from '@prisma/client';
+import bcrypt from 'bcryptjs';
+import config from '../../../config/index';
 import { IGenericResponse } from '../../../interfaces/common';
 
 const prisma = new PrismaClient();
 
 const insertIntoDB = async (data: User): Promise<Partial<User>> => {
+  data.password = await bcrypt.hash(
+    data.password,
+    Number(config.bycrypt_salt_rounds)
+  );
   const result = await prisma.user.create({
     data,
     select: {
-      password: false,
+      password: true,
       id: true,
       userName: true,
       email: true,
