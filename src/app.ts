@@ -7,10 +7,11 @@ import routes from './app/routes';
 import cookieParser from 'cookie-parser';
 
 const app: Application = express();
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 
 
 
