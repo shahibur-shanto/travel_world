@@ -13,7 +13,7 @@ cloudinary.config({
 
 const storage = multer.diskStorage({
   destination: function (req, file, callBack) {
-    callBack(null, 'uploads/');
+    callBack(null, './uploads/');
   },
   filename: function (req, file, callBack) {
     callBack(null, file.originalname);
@@ -22,22 +22,22 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const uploadToCloudinary = async (file:IUploadFile):Promise<ICloudinaryResponse> => {
+const uploadToCloudinary = async (
+  file: IUploadFile
+): Promise<ICloudinaryResponse> => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload(
       file.path,
-      (error:Error, result:ICloudinaryResponse) => {
-        fs.unlinkSync(file.path)
+      (error: Error, result: ICloudinaryResponse) => {
+        fs.unlinkSync(file.path);
         if (error) {
           reject(error);
-        }
-        else {
+        } else {
           resolve(result);
         }
       }
-      
     );
-  })
+  });
 };
 
 export const FileUploadHelper = {
