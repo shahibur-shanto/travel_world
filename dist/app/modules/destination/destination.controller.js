@@ -24,7 +24,7 @@ const insertIntoDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'Destination Created Successfully',
+        message: 'Destination Created Successfully!!!!',
         data: result,
     });
     return result;
