@@ -34,8 +34,8 @@ model Destination {
   location    String
   category    CATEGORY
   transport   TRANSPORT
-  cost       Float
-  image      String
+  cost       String
+  image      String? 
   activities Activity[]
   booking    Booking[]
 

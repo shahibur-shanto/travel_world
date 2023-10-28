@@ -23,10 +23,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DestinationService = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const client_1 = require("@prisma/client");
+const fileUploadHelper_1 = require("../../../helpers/fileUploadHelper");
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const destination_constants_1 = require("./destination.constants");
 const prisma = new client_1.PrismaClient();
-const insertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
+const insertIntoDB = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    const file = req.file;
+    const uploadedImage = yield fileUploadHelper_1.FileUploadHelper.uploadToCloudinary(file);
+    if (uploadedImage) {
+        req.body.image = uploadedImage.secure_url;
+    }
+    const data = req.body;
     const result = yield prisma.destination.create({
         data,
         include: {
@@ -40,9 +47,9 @@ const getAllDestination = (filters, options) => __awaiter(void 0, void 0, void 0
     const { page, limit, skip } = paginationHelper_1.paginationHelpers.calculatePagination(options);
     let { totalPage } = paginationHelper_1.paginationHelpers.calculatePagination(options);
     const { search, minPrice, maxPrice } = filters, filterData = __rest(filters, ["search", "minPrice", "maxPrice"]);
-    const andConditons = [];
+    const andConditions = [];
     if (search) {
-        andConditons.push({
+        andConditions.push({
             OR: destination_constants_1.destinationSearchAbleFields.map(field => ({
                 [field]: {
                     contains: search,
@@ -52,31 +59,29 @@ const getAllDestination = (filters, options) => __awaiter(void 0, void 0, void 0
         });
     }
     if (Object.keys(filterData).length > 0) {
-        andConditons.push({
-            AND: Object.keys(filterData).map(key => ({
-                [key]: {
-                    equals: filterData[key],
-                },
-            })),
-        });
+        andConditions.push(...Object.keys(filterData).map(key => ({
+            [key]: {
+                equals: filterData[key],
+            },
+        })));
     }
     if (minPrice !== undefined) {
-        andConditons.push({
+        andConditions.push({
             cost: {
-                gte: parseFloat(minPrice),
+                gte: parseFloat(minPrice).toString(),
             },
         });
     }
     if (maxPrice !== undefined) {
-        andConditons.push({
+        andConditions.push({
             cost: {
-                lte: parseFloat(maxPrice),
+                lte: parseFloat(maxPrice).toString(),
             },
         });
     }
-    const whereConditons = andConditons.length > 0 ? { AND: andConditons } : {};
+    const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
     const result = yield prisma.destination.findMany({
-        where: whereConditons,
+        where: whereConditions,
         orderBy: options.sortBy && options.sortOrder
             ? {
                 [options.sortBy]: options.sortOrder,
@@ -84,12 +89,9 @@ const getAllDestination = (filters, options) => __awaiter(void 0, void 0, void 0
             : { country: 'asc' },
         skip,
         take: limit,
-        // include: {
-        //   category: true,
-        // },
     });
     const total = yield prisma.destination.count({
-        where: whereConditons,
+        where: whereConditions,
     });
     totalPage = Math.ceil(total / limit);
     return {

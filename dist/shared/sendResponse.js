@@ -5,7 +5,7 @@ const sendResponse = (res, data) => {
         statusCode: data.statusCode,
         success: data.success,
         message: data.message || null,
-        token: data.token,
+        accessToken: data.accessToken,
         meta: data.meta || null || undefined,
         data: data.data || null || undefined,
     };

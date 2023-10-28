@@ -1,14 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Destination, Prisma, PrismaClient } from '@prisma/client';
+import { Request } from 'express';
+import { FileUploadHelper } from '../../../helpers/fileUploadHelper';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
+import { IUploadFile } from '../../../interfaces/file';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { destinationSearchAbleFields } from './destination.constants';
 import { IDestinationFilterRequest } from './destination.interface';
 
 const prisma = new PrismaClient();
 
-const insertIntoDB = async (data: Destination): Promise<Destination> => {
+const insertIntoDB = async (req: Request): Promise<Destination> => {
+  const file = req.file as IUploadFile;
+  const uploadedImage = await FileUploadHelper.uploadToCloudinary(file);
+  if (uploadedImage) {
+    req.body.image = uploadedImage.secure_url;
+  }
+  const data = req.body;
   const result = await prisma.destination.create({
     data,
     include: {
@@ -27,10 +36,10 @@ const getAllDestination = async (
   let { totalPage } = paginationHelpers.calculatePagination(options);
   const { search, minPrice, maxPrice, ...filterData } = filters;
 
-  const andConditons = [];
+  const andConditions: Prisma.DestinationWhereInput[] = [];
 
   if (search) {
-    andConditons.push({
+    andConditions.push({
       OR: destinationSearchAbleFields.map(field => ({
         [field]: {
           contains: search,
@@ -41,35 +50,36 @@ const getAllDestination = async (
   }
 
   if (Object.keys(filterData).length > 0) {
-    andConditons.push({
-      AND: Object.keys(filterData).map(key => ({
+    andConditions.push(
+      ...Object.keys(filterData).map(key => ({
         [key]: {
           equals: (filterData as any)[key],
         },
-      })),
-    });
+      }))
+    );
   }
+
   if (minPrice !== undefined) {
-    andConditons.push({
+    andConditions.push({
       cost: {
-        gte: parseFloat(minPrice),
+        gte: parseFloat(minPrice).toString(),
       },
     });
   }
 
   if (maxPrice !== undefined) {
-    andConditons.push({
+    andConditions.push({
       cost: {
-        lte: parseFloat(maxPrice),
+        lte: parseFloat(maxPrice).toString(),
       },
     });
   }
 
-  const whereConditons: Prisma.DestinationWhereInput =
-    andConditons.length > 0 ? { AND: andConditons } : {};
+  const whereConditions: Prisma.DestinationWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
 
   const result = await prisma.destination.findMany({
-    where: whereConditons,
+    where: whereConditions,
     orderBy:
       options.sortBy && options.sortOrder
         ? {
@@ -78,14 +88,12 @@ const getAllDestination = async (
         : { country: 'asc' },
     skip,
     take: limit,
+  });
 
-    // include: {
-    //   category: true,
-    // },
-  });
   const total = await prisma.destination.count({
-    where: whereConditons,
+    where: whereConditions,
   });
+
   totalPage = Math.ceil(total / limit);
   return {
     meta: {
