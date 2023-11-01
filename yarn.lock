@@ -171,22 +171,22 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@prisma/client@^5.4.2":
-  version "5.4.2"
-  resolved "https://registry.npmjs.org/@prisma/client/-/client-5.4.2.tgz"
-  integrity sha512-2xsPaz4EaMKj1WS9iW6MlPhmbqtBsXAOeVttSePp8vTFTtvzh2hZbDgswwBdSCgPzmmwF+tLB259QzggvCmJqA==
+"@prisma/client@^5.5.2":
+  version "5.5.2"
+  resolved "https://registry.npmjs.org/@prisma/client/-/client-5.5.2.tgz"
+  integrity sha512-54XkqR8M+fxbzYqe+bIXimYnkkcGqgOh0dn0yWtIk6CQT4IUCAvNFNcQZwk2KqaLU+/1PHTSWrcHtx4XjluR5w==
   dependencies:
-    "@prisma/engines-version" "5.4.1-2.ac9d7041ed77bcc8a8dbd2ab6616b39013829574"
+    "@prisma/engines-version" "5.5.1-1.aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a"
 
-"@prisma/engines-version@5.4.1-2.ac9d7041ed77bcc8a8dbd2ab6616b39013829574":
-  version "5.4.1-2.ac9d7041ed77bcc8a8dbd2ab6616b39013829574"
-  resolved "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-5.4.1-2.ac9d7041ed77bcc8a8dbd2ab6616b39013829574.tgz"
-  integrity sha512-wvupDL4AA1vf4TQNANg7kR7y98ITqPsk6aacfBxZKtrJKRIsWjURHkZCGcQliHdqCiW/hGreO6d6ZuSv9MhdAA==
+"@prisma/engines-version@5.5.1-1.aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a":
+  version "5.5.1-1.aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a"
+  resolved "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-5.5.1-1.aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a.tgz"
+  integrity sha512-O+qHFnZvAyOFk1tUco2/VdiqS0ym42a3+6CYLScllmnpbyiTplgyLt2rK/B9BTjYkSHjrgMhkG47S0oqzdIckA==
 
-"@prisma/engines@5.2.0":
-  version "5.2.0"
-  resolved "https://registry.npmjs.org/@prisma/engines/-/engines-5.2.0.tgz"
-  integrity sha512-dT7FOLUCdZmq+AunLqB1Iz+ZH/IIS1Fz2THmKZQ6aFONrQD/BQ5ecJ7g2wGS2OgyUFf4OaLam6/bxmgdOBDqig==
+"@prisma/engines@5.5.2":
+  version "5.5.2"
+  resolved "https://registry.npmjs.org/@prisma/engines/-/engines-5.5.2.tgz"
+  integrity sha512-Be5hoNF8k+lkB3uEMiCHbhbfF6aj1GnrTBnn5iYFT7GEr3TsOEp1soviEcBR0tYCgHbxjcIxJMhdbvxALJhAqg==
 
 "@rollup/pluginutils@^4.0.0":
   version "4.2.1"
@@ -2438,12 +2438,12 @@ pretty-ms@7.0.1:
   dependencies:
     parse-ms "^2.1.0"
 
-prisma@*, prisma@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.npmjs.org/prisma/-/prisma-5.2.0.tgz"
-  integrity sha512-FfFlpjVCkZwrqxDnP4smlNYSH1so+CbfjgdpioFzGGqlQAEm6VHAYSzV7jJgC3ebtY9dNOhDMS2+4/1DDSM7bQ==
+prisma@*, prisma@^5.5.2:
+  version "5.5.2"
+  resolved "https://registry.npmjs.org/prisma/-/prisma-5.5.2.tgz"
+  integrity sha512-WQtG6fevOL053yoPl6dbHV+IWgKo25IRN4/pwAGqcWmg7CrtoCzvbDbN9fXUc7QS2KK0LimHIqLsaCOX/vHl8w==
   dependencies:
-    "@prisma/engines" "5.2.0"
+    "@prisma/engines" "5.5.2"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -2796,6 +2796,11 @@ statuses@2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/statuses/-/statuses-2.0.1.tgz"
   integrity sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==
+
+streamifier@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/streamifier/-/streamifier-0.0.2.tgz"
+  integrity sha512-11+IA2NlvkTtw11GjHbzk9GyvyJBpwSE2PLfkmJ5OMXSpF3OjpizipT67GDaB74GPQQZUKj+5XYec9FLOyqPZw==
 
 streamsearch@^1.1.0:
   version "1.1.0"

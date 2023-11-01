@@ -32,8 +32,8 @@ CREATE TABLE "destination" (
     "location" TEXT NOT NULL,
     "category" "CATEGORY" NOT NULL,
     "transport" "TRANSPORT" NOT NULL,
-    "cost" DOUBLE PRECISION NOT NULL,
-    "image" TEXT NOT NULL,
+    "cost" TEXT NOT NULL,
+    "image" BYTEA NOT NULL,
 
     CONSTRAINT "destination_pkey" PRIMARY KEY ("id")
 );
@@ -58,7 +58,7 @@ CREATE TABLE "booking" (
     "destinationId" TEXT NOT NULL,
     "checkIn" TEXT NOT NULL,
     "checkOut" TEXT NOT NULL,
-    "status" "BOOKINGSTATUS" NOT NULL DEFAULT 'BOOKED',
+    "status" "BOOKINGSTATUS" NOT NULL,
     "numberOfAdults" INTEGER NOT NULL,
     "numberOfChildren" INTEGER NOT NULL,
     "totalPrice" INTEGER NOT NULL,

@@ -20,7 +20,7 @@ const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const destination_constants_1 = require("./destination.constants");
 const destination_service_1 = require("./destination.service");
 const insertIntoDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield destination_service_1.DestinationService.insertIntoDB(req);
+    const result = yield destination_service_1.DestinationService.insertIntoDB(req.body);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

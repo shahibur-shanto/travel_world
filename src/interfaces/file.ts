@@ -7,6 +7,8 @@ export type IUploadFile = {
   filename: string;
   path: string;
   size: number;
+  buffer?: string | undefined;
+  length?: number | undefined;
 };
 
 export type ICloudinaryResponse = {

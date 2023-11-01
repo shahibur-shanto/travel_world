@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 
-import * as fs from 'fs';
-import { ICloudinaryResponse, IUploadFile } from '../interfaces/file';
 
 cloudinary.config({
   cloud_name: 'dmam6uulx',
@@ -22,21 +21,17 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const uploadToCloudinary = async (
-  file: IUploadFile
-): Promise<ICloudinaryResponse> => {
+const uploadToCloudinary = async (file: { buffer: any }) => {
   return new Promise((resolve, reject) => {
-    cloudinary.uploader.upload(
-      file.path,
-      (error: Error, result: ICloudinaryResponse) => {
-        fs.unlinkSync(file.path);
+    cloudinary.uploader
+      .upload_stream({ resource_type: 'auto' }, (error: any, result: any) => {
         if (error) {
           reject(error);
         } else {
           resolve(result);
         }
-      }
-    );
+      })
+      .end(file.buffer);
   });
 };
 
