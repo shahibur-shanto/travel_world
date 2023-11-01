@@ -12,8 +12,9 @@ import { IDestinationFilterRequest } from './destination.interface';
 const prisma = new PrismaClient();
 
 const insertIntoDB = async (data: Request): Promise<Destination> => {
-  const file = data.file;
-  console.log(file);
+  console.log(data);
+  // const file = data.file;
+  // console.log(file);
   // const uploadedImage = await FileUploadHelper.uploadToCloudinary(file);
   // if (uploadedImage) {
   //   req.body.image = uploadedImage.secure_url;

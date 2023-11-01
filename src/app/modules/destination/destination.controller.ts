@@ -8,7 +8,7 @@ import { DestinationFilterAbleFileds } from './destination.constants';
 import { DestinationService } from './destination.service';
 
 const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
-  const result = await DestinationService.insertIntoDB(req.body);
+  const result = await DestinationService.insertIntoDB(req);
   sendResponse<Destination>(res, {
     statusCode: httpStatus.OK,
     success: true,
