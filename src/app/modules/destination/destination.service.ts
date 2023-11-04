@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Destination, Prisma, PrismaClient } from '@prisma/client';
+import {
+  CATEGORY,
+  Destination,
+  Prisma,
+  PrismaClient,
+  TRANSPORT,
+} from '@prisma/client';
 // import { FileUploadHelper } from '../../../helpers/fileUploadHelper';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
@@ -12,29 +18,27 @@ import { IDestinationFilterRequest } from './destination.interface';
 const prisma = new PrismaClient();
 
 type CustomRequest = {
-  body: {
-    country: string;
-    description: string;
-    location: string;
-    image: string; // Make sure this matches the type of your image data
-    category: string;
-    transport: string;
-    cost: number; // Assuming cost is a number
-  };
+  country: string;
+  description: string;
+  location: string;
+  image: string; // Make sure this matches the type of your image data
+  category: CATEGORY;
+  transport: TRANSPORT;
+  cost: string; // Assuming cost is a number
 } & Request;
 
 const insertIntoDB = async (req: CustomRequest): Promise<Destination> => {
-  const imageData = Buffer.from(req.body.image, 'base64');
-
+  const imageData = Buffer.from(req.image, 'base64');
+  // console.log(req);
   const result = await prisma.destination.create({
     data: {
-      country: req.body.country,
-      description: req.body.description,
-      location: req.body.location,
+      country: req.country,
+      description: req.description,
+      location: req.location,
       image: imageData,
-      category: req.body.category,
-      transport: req.body.transport,
-      cost: req.body.cost,
+      category: req.category,
+      transport: req.transport,
+      cost: req.cost,
     },
     include: {
       activities: true,
