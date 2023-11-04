@@ -4,17 +4,38 @@ import { Destination, Prisma, PrismaClient } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 // import { IUploadFile } from '../../../interfaces/file';
+import { Request } from 'express';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { destinationSearchAbleFields } from './destination.constants';
-import {
-  IDestinationFilterRequest,
-} from './destination.interface';
+import { IDestinationFilterRequest } from './destination.interface';
 
 const prisma = new PrismaClient();
 
-const insertIntoDB = async (data: Destination): Promise<Destination> => {
+type CustomRequest = {
+  body: {
+    country: string;
+    description: string;
+    location: string;
+    image: string; // Make sure this matches the type of your image data
+    category: string;
+    transport: string;
+    cost: number; // Assuming cost is a number
+  };
+} & Request;
+
+const insertIntoDB = async (req: CustomRequest): Promise<Destination> => {
+  const imageData = Buffer.from(req.body.image, 'base64');
+
   const result = await prisma.destination.create({
-    data,
+    data: {
+      country: req.body.country,
+      description: req.body.description,
+      location: req.body.location,
+      image: imageData,
+      category: req.body.category,
+      transport: req.body.transport,
+      cost: req.body.cost,
+    },
     include: {
       activities: true,
       booking: true,

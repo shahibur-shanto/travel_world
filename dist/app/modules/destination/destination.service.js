@@ -27,9 +27,18 @@ const client_1 = require("@prisma/client");
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const destination_constants_1 = require("./destination.constants");
 const prisma = new client_1.PrismaClient();
-const insertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
+const insertIntoDB = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    const imageData = Buffer.from(req.body.image, 'base64');
     const result = yield prisma.destination.create({
-        data,
+        data: {
+            country: req.body.country,
+            description: req.body.description,
+            location: req.body.location,
+            image: imageData,
+            category: req.body.category,
+            transport: req.body.transport,
+            cost: req.body.cost,
+        },
         include: {
             activities: true,
             booking: true,
