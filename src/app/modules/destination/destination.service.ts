@@ -1,25 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Destination, Prisma, PrismaClient } from '@prisma/client';
-import { Request } from 'express';
 // import { FileUploadHelper } from '../../../helpers/fileUploadHelper';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 // import { IUploadFile } from '../../../interfaces/file';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { destinationSearchAbleFields } from './destination.constants';
-import { IDestinationFilterRequest } from './destination.interface';
+import {
+  IDestinationFilterRequest,
+} from './destination.interface';
 
 const prisma = new PrismaClient();
 
-const insertIntoDB = async (data: Request): Promise<Destination> => {
-  console.log(data);
-  // const file = data.file;
-  // console.log(file);
-  // const uploadedImage = await FileUploadHelper.uploadToCloudinary(file);
-  // if (uploadedImage) {
-  //   req.body.image = uploadedImage.secure_url;
-  // }
-  // const data = req.body;
+const insertIntoDB = async (data: Destination): Promise<Destination> => {
   const result = await prisma.destination.create({
     data,
     include: {

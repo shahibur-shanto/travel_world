@@ -9,14 +9,15 @@ const router = express.Router();
 
 router.post(
   '/destination/create-destination',
+  DestinationController.insertIntoDB
   // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   // FileUploadHelper.upload.single('file'),
-  // (req: Request, res: Response, next: NextFunction) => {
+  // (req: Request) => {
   //   req.body = DestinationValidation.createDestination.parse(
   //     JSON.parse(req.body.data)
   //   );
-  //   return
-  DestinationController.insertIntoDB
+  //   return DestinationController.insertIntoDB;
+  // }
 );
 router.get('/destinations', DestinationController.getAllDestination);
 router.get('/destinations/:id', DestinationController.getSingleDestination);

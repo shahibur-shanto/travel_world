@@ -34,7 +34,7 @@ model Destination {
   category    CATEGORY
   transport   TRANSPORT
   cost       String
-  image      Bytes 
+  image      Bytes? 
   activities Activity[]
   booking    Booking[]
 

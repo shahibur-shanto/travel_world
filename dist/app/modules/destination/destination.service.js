@@ -23,17 +23,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DestinationService = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const client_1 = require("@prisma/client");
+// import { FileUploadHelper } from '../../../helpers/fileUploadHelper';
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const destination_constants_1 = require("./destination.constants");
 const prisma = new client_1.PrismaClient();
 const insertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const file = data.file;
-    console.log(file);
-    // const uploadedImage = await FileUploadHelper.uploadToCloudinary(file);
-    // if (uploadedImage) {
-    //   req.body.image = uploadedImage.secure_url;
-    // }
-    // const data = req.body;
     const result = yield prisma.destination.create({
         data,
         include: {

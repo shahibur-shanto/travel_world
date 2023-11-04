@@ -11,15 +11,16 @@ const auth_1 = __importDefault(require("../../middlewares/auth"));
 const destination_controller_1 = require("./destination.controller");
 // import { DestinationValidation } from './destination.validations';
 const router = express_1.default.Router();
-router.post('/destination/create-destination', 
+router.post('/destination/create-destination', destination_controller_1.DestinationController.insertIntoDB
 // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
 // FileUploadHelper.upload.single('file'),
-// (req: Request, res: Response, next: NextFunction) => {
+// (req: Request) => {
 //   req.body = DestinationValidation.createDestination.parse(
 //     JSON.parse(req.body.data)
 //   );
-//   return
-destination_controller_1.DestinationController.insertIntoDB);
+//   return DestinationController.insertIntoDB;
+// }
+);
 router.get('/destinations', destination_controller_1.DestinationController.getAllDestination);
 router.get('/destinations/:id', destination_controller_1.DestinationController.getSingleDestination);
 router.patch('/destinations/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.SUPER_ADMIN, user_1.ENUM_USER_ROLE.ADMIN), destination_controller_1.DestinationController.updateDestination);
