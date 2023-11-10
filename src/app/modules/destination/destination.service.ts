@@ -28,14 +28,16 @@ type CustomRequest = {
 } & Request;
 
 const insertIntoDB = async (req: CustomRequest): Promise<Destination> => {
-  const imageData = Buffer.from(req.image, 'base64');
+  console.log('Request:', req);
+  console.log('Image data:', req.image);
+  // const imageData = Buffer.from(req.image, 'base64');
   // console.log(req);
   const result = await prisma.destination.create({
     data: {
       country: req.country,
       description: req.description,
       location: req.location,
-      image: imageData,
+      image: req.image,
       category: req.category,
       transport: req.transport,
       cost: req.cost,
