@@ -21,6 +21,9 @@ const createDestination = z.object({
   cost: z.string({
     required_error: 'Cost is required',
   }),
+  image: z.string({
+    required_error: 'Image is required',
+  }),
 });
 
 export const DestinationValidation = {
