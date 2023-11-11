@@ -8,7 +8,9 @@ import cookieParser from 'cookie-parser';
 
 const app: Application = express();
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(
+  cors({ origin: 'https://enjoy-the-world.vercel.app', credentials: true })
+);
 
 // app.use(cors());
 app.use(cookieParser());
