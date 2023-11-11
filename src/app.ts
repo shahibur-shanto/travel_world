@@ -1,22 +1,30 @@
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
+// import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import routes from './app/routes';
 
 const app: Application = express();
-app.use(
-  cors({
-    origin: '*',
-    // You can also specify an array of allowed origins:
-    // origin: ['https://dancing-licorice-2ec233.netlify.app', 'https://another-allowed-origin.com'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // include credentials like cookies, authorization headers, etc.
-  })
-);
+// app.use(
+//   cors({
+//     origin: '*',
+//     // You can also specify an array of allowed origins:
+//     // origin: ['https://dancing-licorice-2ec233.netlify.app', 'https://another-allowed-origin.com'],
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     credentials: true, // include credentials like cookies, authorization headers, etc.
+//   })
+// );
 
-app.options('*', cors());
+// app.options('*', cors());
+
+app.use((req, res, next) => {
+  res.setHeader(
+    'Access-Control-Allow-Origin',
+    'https://enjoy-the-world.vercel.app/api/v1/auth/signin'
+  );
+  next();
+});
 
 app.use(cookieParser());
 
