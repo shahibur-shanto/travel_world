@@ -10,7 +10,7 @@ const app: Application = express();
 
 app.use(
   cors({
-    origin: 'https://dancing-licorice-2ec233.netlify.app',
+    origin: 'https://enjoy-the-world.vercel.app',
     credentials: true,
   })
 );
@@ -18,7 +18,7 @@ app.use(
 app.use((req, res, next) => {
   res.setHeader(
     'Access-Control-Allow-Origin',
-    'https://dancing-licorice-2ec233.netlify.app'
+    'https://enjoy-the-world.vercel.app'
   );
   res.setHeader(
     'Access-Control-Allow-Methods',
