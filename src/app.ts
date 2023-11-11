@@ -9,7 +9,10 @@ import cookieParser from 'cookie-parser';
 const app: Application = express();
 
 app.use(
-  cors({ origin: 'https://enjoy-the-world.vercel.app', credentials: true })
+  cors({
+    origin: 'https://dancing-licorice-2ec233.netlify.app/',
+    credentials: true,
+  })
 );
 
 // app.use(cors());
