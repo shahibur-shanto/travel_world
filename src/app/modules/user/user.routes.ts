@@ -5,16 +5,16 @@ import { UserController } from './user.controller';
 
 const router = express.Router();
 
-router.post('/auth/signup', UserController.insertIntoDB);
+router.post('auth/signup', UserController.insertIntoDB);
 
 router.patch(
-  '/users/:id',
+  'users/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   UserController.updateUser
 );
 
 router.delete(
-  '/users/:id',
+  'users/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   UserController.deleteUser
 );
