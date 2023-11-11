@@ -28,8 +28,6 @@ const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const destination_constants_1 = require("./destination.constants");
 const prisma = new client_1.PrismaClient();
 const insertIntoDB = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Request:', req);
-    console.log('Image data:', req.image);
     // const imageData = Buffer.from(req.image, 'base64');
     // console.log(req);
     const result = yield prisma.destination.create({

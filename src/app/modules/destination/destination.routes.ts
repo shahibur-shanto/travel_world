@@ -31,7 +31,8 @@ const ALLOWED_FORMAT = ['image/jpeg', 'image/png', 'image/jpg'];
 const storage = multer.memoryStorage();
 const upload = multer({
   storage,
-  fileFilter: function (req, file, cb) {
+  // eslint-disable-next-line no-unused-vars
+  fileFilter: function (req:Request, file:Express.Multer.File, cb: (arg0: Error | null, arg1: boolean) => void) {
     if (ALLOWED_FORMAT.includes(file.mimetype)) {
       cb(null, true);
     } else {
@@ -42,8 +43,8 @@ const upload = multer({
 
 const singleUpload = upload.single('file');
 
-const singleUploadCtrl = (req, res, next) => {
-  singleUpload(req, res, error => {
+const singleUploadCtrl = (req:Request, res:Response, next:NextFunction) => {
+  singleUpload(req, res, (error: unknown) => {
     if (error) {
       return res.send({ message: 'Image Upload Fail' });
     }
@@ -61,7 +62,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const cloudinaryUpload = file => cloudinary.uploader.upload(file);
+const cloudinaryUpload = (file:File) => cloudinary.uploader.upload(file);
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const DatauriParser = require('datauri/parser');
@@ -70,7 +71,7 @@ const path = require('path');
 const parser = new DatauriParser();
 
 // dUri.format('.png', buffer);
-const dataUri = file =>
+const dataUri = (file:Express.Multer.File) =>
   parser.format(path.extname(file.originalname).toString(), file.buffer);
 
 router.post(
@@ -83,12 +84,11 @@ router.post(
         throw new Error('Image is not presented!');
       }
       const file64 = dataUri(req.file);
+
       const uploadResult = await cloudinaryUpload(file64.content);
       const parsedData = JSON.parse(req.body.data);
-      // req.body.data.image = uploadResult.secure_url;
       parsedData.image = uploadResult.secure_url;
       req.body = parsedData;
-
       // req.body = DestinationValidation.createDestination.parse(parsedData);
       // console.log(req.body);
       // req.body = DestinationValidation.createDestination.parse(
