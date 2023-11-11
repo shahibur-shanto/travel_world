@@ -8,7 +8,7 @@ import routes from './app/routes';
 const app: Application = express();
 app.use(
   cors({
-    origin: 'https://dancing-licorice-2ec233.netlify.app',
+    origin: '*',
     // You can also specify an array of allowed origins:
     // origin: ['https://dancing-licorice-2ec233.netlify.app', 'https://another-allowed-origin.com'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -18,25 +18,6 @@ app.use(
 
 app.options('*', cors());
 
-// app.use((req, res, next) => {
-//   res.setHeader(
-//     'Access-Control-Allow-Origin',
-//     'https://dancing-licorice-2ec233.netlify.app'
-//   );
-//   res.setHeader(
-//     'Access-Control-Allow-Methods',
-//     'GET, POST, PUT, PATCH, DELETE'
-//   );
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//   res.setHeader('Access-Control-Allow-Credentials', 'true');
-//   res.setHeader(
-//     'Access-Control-Allow-Headers',
-//     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-//   );
-//   next();
-// });
-
-// app.use(cors());
 app.use(cookieParser());
 
 //parser
