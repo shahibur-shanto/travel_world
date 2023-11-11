@@ -1,21 +1,20 @@
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import routes from './app/routes';
 
-import cookieParser from 'cookie-parser';
-
 const app: Application = express();
-import cors from 'cors';
-
-app.use(cors({
-  origin: 'https://dancing-licorice-2ec233.netlify.app',
-  // You can also specify an array of allowed origins:
-  // origin: ['https://dancing-licorice-2ec233.netlify.app', 'https://another-allowed-origin.com'],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // include credentials like cookies, authorization headers, etc.
-}));
-
+app.use(
+  cors({
+    origin: 'https://dancing-licorice-2ec233.netlify.app',
+    // You can also specify an array of allowed origins:
+    // origin: ['https://dancing-licorice-2ec233.netlify.app', 'https://another-allowed-origin.com'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // include credentials like cookies, authorization headers, etc.
+  })
+);
 
 // app.use((req, res, next) => {
 //   res.setHeader(
