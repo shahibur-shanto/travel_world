@@ -10,7 +10,7 @@ const app: Application = express();
 
 app.use(
   cors({
-    origin: 'https://dancing-licorice-2ec233.netlify.app/',
+    origin: 'https://dancing-licorice-2ec233.netlify.app',
     credentials: true,
   })
 );
