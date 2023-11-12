@@ -1,5 +1,5 @@
 import cookieParser from 'cookie-parser';
-// import cors from 'cors';
+import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
@@ -16,15 +16,25 @@ const app: Application = express();
 //   })
 // );
 
+
+const corsOption = {
+  origin: '',
+  credentils: true,
+};
+app.use(cors(corsOption));
+
+
+
+
 // app.options('*', cors());
 
-app.use((req, res, next) => {
-  res.setHeader(
-    'Access-Control-Allow-Origin',
-    'https://enjoy-the-world.vercel.app/api/v1/auth/signin'
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader(
+//     'Access-Control-Allow-Origin',
+//     'https://enjoy-the-world.vercel.app'
+//   );
+//   next();
+// });
 
 app.use(cookieParser());
 
