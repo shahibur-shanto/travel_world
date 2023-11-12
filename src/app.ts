@@ -17,7 +17,7 @@ const app: Application = express();
 // );
 
 const corsOption = {
-  origin: 'https://dancing-licorice-2ec233.netlify.app',
+  origin: ['https://dancing-licorice-2ec233.netlify.app','https://enjoy-the-world.vercel.app'],
   credentils: true,
 };
 app.use(cors(corsOption));

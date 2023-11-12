@@ -3,15 +3,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const http_status_1 = __importDefault(require("http-status"));
 const globalErrorHandler_1 = __importDefault(require("./app/middlewares/globalErrorHandler"));
 const routes_1 = __importDefault(require("./app/routes"));
-const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({ origin: 'https://enjoy-the-world.vercel.app', credentials: true }));
-// app.use(cors());
+// app.use(
+//   cors({
+//     origin: '*',
+//     // You can also specify an array of allowed origins:
+//     // origin: ['https://dancing-licorice-2ec233.netlify.app', 'https://another-allowed-origin.com'],
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     credentials: true, // include credentials like cookies, authorization headers, etc.
+//   })
+// );
+const corsOption = {
+    origin: 'https://dancing-licorice-2ec233.netlify.app',
+    credentils: true,
+};
+app.use((0, cors_1.default)(corsOption));
+// app.options('*', cors());
+// app.use((req, res, next) => {
+//   res.setHeader(
+//     'Access-Control-Allow-Origin',
+//     'https://enjoy-the-world.vercel.app'
+//   );
+//   next();
+// });
 app.use((0, cookie_parser_1.default)());
 //parser
 app.use(express_1.default.json());

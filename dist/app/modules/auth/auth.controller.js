@@ -18,6 +18,7 @@ const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const auth_service_1 = require("./auth.service");
 const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
     const result = yield auth_service_1.AuthService.loginUser(req.body);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
