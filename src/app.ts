@@ -16,15 +16,11 @@ const app: Application = express();
 //   })
 // );
 
-
 const corsOption = {
-  origin: '',
+  origin: 'https://dancing-licorice-2ec233.netlify.app',
   credentils: true,
 };
 app.use(cors(corsOption));
-
-
-
 
 // app.options('*', cors());
 
